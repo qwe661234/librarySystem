@@ -28,6 +28,9 @@ $(function(){
         height: 600 + "px"
     });
 
+    $("#book_name").kendoValidator({});
+    $("#book_author").kendoValidator({});
+
     $("#openWindow").kendoButton({
         click: function () {
             $("#window").data("kendoWindow").center().open();
@@ -49,6 +52,10 @@ $(function(){
         value: new Date(),
         format: "yyyy-MM-dd",
     });
+
+    $("#modify_book_name").kendoValidator({});
+    $("#modify_book_author").kendoValidator({});
+    
     $("#modify_window").kendoWindow({
         actions: [ "Minimize", "Maximize", "Close"],
         visible: false,
@@ -139,30 +146,38 @@ function modifyBook(event){
 
 function modify(){
     var bookId = $("#modify_book_id").val(); 
-    bookDataFromLocalStorage[bookId - 1].BookName = $("#modify_book_name").val();
-    bookDataFromLocalStorage[bookId - 1].BookCategory = $("#modify_book_category").data("kendoDropDownList").text();
-    bookDataFromLocalStorage[bookId - 1].BookAuthor = $("#modify_book_author").val();
-    bookDataFromLocalStorage[bookId - 1].BookBoughtDate = $("#modify_bought_datepicker").data("kendoDatePicker")._oldText;
-    localStorage.setItem("bookData", JSON.stringify(bookDataFromLocalStorage));
-    var grid = $("#book_grid").data("kendoGrid");
-    grid.dataSource.read();
-    $("#modify_window").data("kendoWindow").close();
+    var name_validatable = $("#modify_book_name").data("kendoValidator");
+    var author_validatable = $("#modify_book_author").data("kendoValidator");
+    if(name_validatable.validate() && author_validatable.validate()){
+        bookDataFromLocalStorage[bookId - 1].BookName = $("#modify_book_name").val();
+        bookDataFromLocalStorage[bookId - 1].BookCategory = $("#modify_book_category").data("kendoDropDownList").text();
+        bookDataFromLocalStorage[bookId - 1].BookAuthor = $("#modify_book_author").val();
+        bookDataFromLocalStorage[bookId - 1].BookBoughtDate = $("#modify_bought_datepicker").data("kendoDatePicker")._oldText;
+        localStorage.setItem("bookData", JSON.stringify(bookDataFromLocalStorage));
+        var grid = $("#book_grid").data("kendoGrid");
+        grid.dataSource.read();
+        $("#modify_window").data("kendoWindow").close();
+    }
 }
 
 function addBook(){
     var bookId = bookDataFromLocalStorage.length + 1;
-    var bookName = $("#book_name").val();
-    var bookCategory = $("#book_category").data("kendoDropDownList").text();
-    var bookAuthor = $("#book_author").val();
-    var bookBoughtDate = $("#bought_datepicker").data("kendoDatePicker")._oldText;
-    var newBook = new book(bookId, bookName, bookCategory, bookAuthor, bookBoughtDate);
-    bookDataFromLocalStorage.push(newBook);
-    localStorage.setItem("bookData", JSON.stringify(bookDataFromLocalStorage));
-    var grid = $("#book_grid").data("kendoGrid");
-    grid.dataSource.read();
-    $("#window").data("kendoWindow").close();
-    $("#book_name").val("");
-    $("#book_author").val("");
+    var name_validatable = $("#book_name").data("kendoValidator");
+    var author_validatable = $("#book_author").data("kendoValidator");
+    if(name_validatable.validate() && author_validatable.validate()){
+        var bookName = $("#book_name").val();
+        var bookCategory = $("#book_category").data("kendoDropDownList").text();
+        var bookAuthor = $("#book_author").val();
+        var bookBoughtDate = $("#bought_datepicker").data("kendoDatePicker")._oldText;
+        var newBook = new book(bookId, bookName, bookCategory, bookAuthor, bookBoughtDate);
+        bookDataFromLocalStorage.push(newBook);
+        localStorage.setItem("bookData", JSON.stringify(bookDataFromLocalStorage));
+        var grid = $("#book_grid").data("kendoGrid");
+        grid.dataSource.read();
+        $("#window").data("kendoWindow").close();
+        $("#book_name").val("");
+        $("#book_author").val("");
+    }
 }
 
 function book(bookId, bookName, bookCategory, bookAuthor, bookBoughtDate){

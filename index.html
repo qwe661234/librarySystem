@@ -19,25 +19,26 @@
     <main>
         <div class="uk-container align-center">
             <div id = "window">
+            <form id="form">
                 <ul class="fieldlist">
                     <li>
                         <img class="book-image" src="image/database.jpg" alt="">
                     </li>
                     <li>
-                        <label>圖書類別</label>
+                        <label for="book_category">圖書類別</label>
                         <select id="book_category" style="width: 100%;">
                         </select>
                     </li>
                     <li>
-                        <label>書名</label>
+                        <label for="book_name">書名</label>
                         <input id="book_name" type="text" class="k-textbox" style="width: 100%;" required/>
                     </li>
                     <li>
-                        <label>作者</label>
+                        <label for="book_author">作者</label>
                         <input id="book_author" type="text" class="k-textbox" style="width: 100%;" required/>
                     </li>
                     <li>
-                        <label>購買日期</label>
+                        <label for="bought_datepicker">購買日期</label>
                         <input id="bought_datepicker" value="10/10/2011" title="datepicker" style="width: 100%" />
                         <!-- <input type="text" class="k-textbox" style="width: 100%;" /> -->
                     </li>
@@ -45,6 +46,7 @@
                         <button id="add_book" class="k-button k-primary btn-add-book">新增</button>
                     </li>
                 </ul>
+            </form>
             </div>
             <button id="openWindow" class="k-button k-primary btn-add-book">新增</button>
             <div id="book_grid">
@@ -58,20 +60,20 @@
                         <img class="modify-book-image" src="image/database.jpg" alt="">
                     </li>
                     <li>
-                        <label>圖書類別</label>
+                        <label for="modify_book_category">圖書類別</label>
                         <select id="modify_book_category" style="width: 100%;">
                         </select>
                     </li>
                     <li>
-                        <label>書名</label>
+                        <label for="modify_book_name">書名</label>
                         <input id="modify_book_name" type="text" class="k-textbox" style="width: 100%;" required/>
                     </li>
                     <li>
-                        <label>作者</label>
+                        <label for="modify_book_author">作者</label>
                         <input id="modify_book_author" type="text" class="k-textbox" style="width: 100%;" required/>
                     </li>
                     <li>
-                        <label>購買日期</label>
+                        <label for="modify_bought_datepicker">購買日期</label>
                         <input id="modify_bought_datepicker" title="datepicker" style="width: 100%" />
                     </li>
                     <li class="uk-text-right">
